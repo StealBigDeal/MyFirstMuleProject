@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<types:mule xmlns:types="http://www.mulesoft.org/schema/mule/types">
+  <types:catalog>
+    <types:type name="hello" format="json">
+      <types:shape format="weave" example="examples/hello.json"><![CDATA[%dw 2.0
+
+type hello = Array<{|  firstName: String,   lastName: String,   age: Number {"typeId": "int"}|}> {"example": "[{\\\"firstName\\\":\\\"John\\\",\\\"lastName\\\":\\\"Smith\\\",\\\"age\\\":45},{\\\"firstName\\\":\\\"Jane\\\",\\\"lastName\\\":\\\"Doe\\\",\\\"age\\\":34}]"}
+
+]]></types:shape>
+    </types:type>
+  </types:catalog>
+  <types:enrichment select="#f8aa2fa9-a4f3-4fe1-841c-e5a0861322a3">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="hello"/>
+        </types:message>
+      </types:input-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#605c17c3-7ce5-496b-954b-1ebe46360023">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="hello"/>
+          <types:attributes type="hello"/>
+        </types:message>
+      </types:input-event>
+    </types:processor-declaration>
+  </types:enrichment>
+</types:mule>
